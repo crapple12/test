@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paddy's Enterprises & Hardware Ltd. — Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c03d06761f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Backgrounds -->
+    <div class="ocean-bg"></div>
+    <div class="grid-lines"></div>
+    <div class="wave-lines">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="rgba(42,83,158,0.3)"/>
+            <path d="M0,80 C480,20 960,100 1440,40 L1440,120 L0,120 Z" fill="rgba(26,58,107,0.2)"/>
+        </svg>
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,40 C400,100 1000,20 1440,70 L1440,120 L0,120 Z" fill="rgba(42,83,158,0.15)"/>
+        </svg>
+    </div>
+
+    <!-- Ship Steering Wheel SVG Decoration -->
+    <svg class="wheel-deco" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer rim -->
+      <circle cx="200" cy="200" r="185" stroke="white" stroke-width="14" fill="none"/>
+      <!-- Inner rim -->
+      <circle cx="200" cy="200" r="160" stroke="white" stroke-width="5" fill="none"/>
+      <!-- Hub outer -->
+      <circle cx="200" cy="200" r="36" stroke="white" stroke-width="8" fill="none"/>
+      <!-- Hub inner detail -->
+      <circle cx="200" cy="200" r="22" stroke="white" stroke-width="4" fill="none"/>
+      <!-- Hub center dot -->
+      <circle cx="200" cy="200" r="8" fill="white"/>
+
+      <!-- 8 spokes with handle knobs -->
+      <!-- Each spoke: thick shaft from hub to rim, with a rounded knob at the outer end -->
+
+      <!-- Spoke 0° (top) -->
+      <line x1="200" y1="164" x2="200" y2="18" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="200" cy="15" r="10" fill="white"/>
+
+      <!-- Spoke 45° -->
+      <line x1="225.5" y1="174.5" x2="330.5" y2="69.5" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="335" cy="65" r="10" fill="white"/>
+
+      <!-- Spoke 90° (right) -->
+      <line x1="236" y1="200" x2="382" y2="200" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="385" cy="200" r="10" fill="white"/>
+
+      <!-- Spoke 135° -->
+      <line x1="225.5" y1="225.5" x2="330.5" y2="330.5" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="335" cy="335" r="10" fill="white"/>
+
+      <!-- Spoke 180° (bottom) -->
+      <line x1="200" y1="236" x2="200" y2="382" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="200" cy="385" r="10" fill="white"/>
+
+      <!-- Spoke 225° -->
+      <line x1="174.5" y1="225.5" x2="69.5" y2="330.5" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="65" cy="335" r="10" fill="white"/>
+
+      <!-- Spoke 270° (left) -->
+      <line x1="164" y1="200" x2="18" y2="200" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="15" cy="200" r="10" fill="white"/>
+
+      <!-- Spoke 315° -->
+      <line x1="174.5" y1="174.5" x2="69.5" y2="69.5" stroke="white" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="65" cy="65" r="10" fill="white"/>
+
+      <!-- Decorative ring details on outer rim (small tick marks between spokes) -->
+      <circle cx="200" cy="15" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="335" cy="65" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="385" cy="200" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="335" cy="335" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="200" cy="385" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="65" cy="335" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="15" cy="200" r="5" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="65" cy="65" r="5" fill="none" stroke="white" stroke-width="2"/>
+    </svg>
+
+    <div class="particles" id="particles"></div>
+
+    <!-- Page -->
+    <div class="page">
+        <header>
+            <div class="logo-wrap">
+                <img src="./Bigger Logo1.png" alt="Paddy's Enterprises & Hardware Ltd.">
+            </div>
+            <div class="header-tag">Est. &mdash; Coming Soon</div>
+        </header>
+
+        <main>
+            <div class="eyebrow">Something Big is Coming</div>
+
+            <h1 class="headline">
+                Under<br>
+                <span>Construction</span>
+            </h1>
+
+            <p class="subtext">
+                We're building something great for Carriacou and beyond.
+                Our full site is on the way — enter your email to be the first to know when we launch.
+            </p>
+
+            <div id="countdown">
+                <div class="countdown-item">
+                    <div class="count-box"><span class="count-num" id="days">000</span></div>
+                    <div class="count-label">Days</div>
+                </div>
+                <div class="count-sep">:</div>
+                <div class="countdown-item">
+                    <div class="count-box"><span class="count-num" id="hours">00</span></div>
+                    <div class="count-label">Hours</div>
+                </div>
+                <div class="count-sep">:</div>
+                <div class="countdown-item">
+                    <div class="count-box"><span class="count-num" id="minutes">00</span></div>
+                    <div class="count-label">Mins</div>
+                </div>
+                <div class="count-sep">:</div>
+                <div class="countdown-item">
+                    <div class="count-box"><span class="count-num" id="seconds">00</span></div>
+                    <div class="count-label">Secs</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="notify-wrap">
+                <div class="notify-label">Get notified at launch</div>
+                <form class="notify-form" id="form" novalidate>
+                    <input class="notify-input" type="email" placeholder="your@email.com" required>
+                    <button class="notify-btn" type="submit">Notify Me</button>
+                </form>
+                <div class="success-msg" id="success">
+                    <i class="fa-solid fa-check-circle"></i> You're on the list — we'll be in touch!
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-copy">
+                <div>&copy; 2026 Paddy's Enterprises &amp; Hardware Ltd.</div>
+                <div style="margin-top:6px;font-size:11px;opacity:0.85;letter-spacing:3px;color:var(--white);">Built by <a href="#" style="color:var(--gold);text-decoration:none;font-weight:700;letter-spacing:4px;">DEVSHAK</a></div>
+            </div>
+            <div class="socials">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
