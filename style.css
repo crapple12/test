@@ -117,7 +117,6 @@ html, body {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 100px;
         padding: 28px 48px;
         border-bottom: 1px solid rgba(255,106,0,0.15);
         backdrop-filter: blur(4px);
@@ -128,11 +127,6 @@ html, body {
     @keyframes slideDown {
         from { opacity: 0; transform: translateY(-30px); }
         to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .logo-wrap {
-        position: absolute;
-        left: 48px;
     }
 
     .logo-wrap img {
@@ -444,7 +438,6 @@ html, body {
 /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
         header { padding: 20px 24px; }
-        .logo-wrap { position: relative; left: 0; }
         main { padding: 40px 24px; }
         footer { padding: 24px; flex-direction: column; gap: 20px; }
         .header-tag { display: none; }
