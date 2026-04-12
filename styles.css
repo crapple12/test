@@ -1,0 +1,522 @@
+*, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy-deep:    #070f20;
+      --navy:         #0a1628;
+      --navy-mid:     #0e1f3a;
+      --blue-dark:    #153060;
+      --blue-mid:     #1e4a8c;
+      --blue-steel:   #3b6ab0;
+      --blue-light:   #6a9fd4;
+      --blue-pale:    #a8c8e8;
+      --orange:       #D05000;
+      --orange-light: #E86820;
+      --orange-pale:  rgba(208,80,0,0.13);
+      --white:        #eef3f8;
+      --white-dim:    rgba(238,243,248,0.55);
+      --grid-line:    rgba(59,106,176,0.12);
+      --grid-sub:     rgba(59,106,176,0.05);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      min-height: 100vh;
+      font-family: 'Playfair Display', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── Blueprint grid ──────────────────────────────────────── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(var(--grid-sub) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-sub) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 25px 25px, 25px 25px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Radial vignette ──────────────────────────────────────── */
+    .bg-vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, var(--navy-deep) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Construction stripe corners ─────────────────────────── */
+    .stripe-corner {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .stripe-corner::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgba(208, 80, 0, 0.14) 10px,
+        rgba(208, 80, 0, 0.14) 20px
+      );
+    }
+    .stripe-corner.tl { top: 0; left: 0; }
+    .stripe-corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+    .stripe-corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+    .stripe-corner.br { bottom: 0; right: 0; transform: scale(-1); }
+
+    /* ─── Blueprint corner markers ─────────────────────────────── */
+    .marker {
+      position: fixed;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .marker::before, .marker::after {
+      content: '';
+      position: absolute;
+      background: var(--blue-steel);
+      opacity: 0.5;
+    }
+    .marker.tl { top: 28px; left: 28px; }
+    .marker.tr { top: 28px; right: 28px; }
+    .marker.bl { bottom: 28px; left: 28px; }
+    .marker.br { bottom: 28px; right: 28px; }
+    .marker.tl::before { top:0; left:0; width:1px; height:28px; }
+    .marker.tl::after  { top:0; left:0; width:28px; height:1px; }
+    .marker.tr::before { top:0; right:0; width:1px; height:28px; }
+    .marker.tr::after  { top:0; right:0; width:28px; height:1px; }
+    .marker.bl::before { bottom:0; left:0; width:1px; height:28px; }
+    .marker.bl::after  { bottom:0; left:0; width:28px; height:1px; }
+    .marker.br::before { bottom:0; right:0; width:1px; height:28px; }
+    .marker.br::after  { bottom:0; right:0; width:28px; height:1px; }
+
+    /* ─── Ship wheel ghost watermark ──────────────────────────── */
+    .wheel-watermark {
+      position: fixed;
+      right: -180px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 820px;
+      height: 820px;
+      opacity: 0.055;
+      animation: wheelSpin 80s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      color: var(--blue-pale);
+    }
+    .wheel-watermark svg { width: 100%; height: 100%; }
+
+    @keyframes wheelSpin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to   { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    /* ─── Main layout ─────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 110px;
+    }
+
+    /* ─── Logo ────────────────────────────────────────────────── */
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 44px;
+      gap: 24px;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 0.1s;
+    }
+    .logo-plate {
+      cursor: pointer;
+    }
+    .logo-svg {
+      display: block;
+      width: 360px;
+      height: auto;
+      filter: drop-shadow(0 2px 18px rgba(30, 74, 140, 0.28));
+      transition: filter 0.4s ease;
+    }
+    /* wheel stroked elements */
+    .logo-svg .lw {
+      fill: none;
+      stroke: #4a82c4;
+      stroke-linecap: round;
+      transition: stroke 0.4s ease;
+    }
+    /* wheel filled elements */
+    .logo-svg .lwf {
+      fill: #4a82c4;
+      transition: fill 0.4s ease;
+    }
+    /* primary text */
+    .logo-svg .lt1 {
+      fill: #1a3a8c;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      transition: fill 0.4s ease;
+    }
+    /* secondary text */
+    .logo-svg .lt2 {
+      fill: #1a3a8c;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      transition: fill 0.4s ease;
+    }
+    /* hover: everything turns orange */
+    .logo-plate:hover .logo-svg {
+      filter: drop-shadow(0 2px 18px rgba(208, 80, 0, 0.32));
+    }
+    .logo-plate:hover .logo-svg .lw  { stroke: var(--orange); }
+    .logo-plate:hover .logo-svg .lwf { fill:   var(--orange); }
+    .logo-plate:hover .logo-svg .lt1,
+    .logo-plate:hover .logo-svg .lt2 { fill:   var(--orange); }
+
+    /* ─── Logo wheel spin on hover ────────────────────────────── */
+    #logo-wheel-group {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .logo-plate:hover #logo-wheel-group {
+      animation: logoWheelSpin 3s linear infinite;
+    }
+    @keyframes logoWheelSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* thin rule anchoring logo to content */
+    .logo-rule {
+      width: 240px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blue-steel) 30%, var(--blue-steel) 70%, transparent);
+      position: relative;
+    }
+    .logo-rule::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 8px 2px rgba(208, 80, 0, 0.45);
+    }
+
+    /* ─── Hero ────────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 0.3s;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+    }
+    .eyebrow::before { background: linear-gradient(90deg, transparent, var(--orange-light)); }
+    .eyebrow::after  { background: linear-gradient(90deg, var(--orange-light), transparent); }
+
+    .hero-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(68px, 13vw, 148px);
+      line-height: 0.88;
+      letter-spacing: 0.03em;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 0.45s;
+    }
+    .hero-main .line-1 { display: block; color: var(--white); }
+    .hero-main .line-2 {
+      display: block;
+      color: var(--orange-light);
+      text-shadow: 0 0 60px rgba(208,80,0,0.35);
+    }
+
+    .hero-body {
+      margin-top: 22px;
+      font-size: clamp(16px, 2.5vw, 21px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--white-dim);
+      line-height: 1.6;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 0.65s;
+    }
+
+    /* ─── Countdown ───────────────────────────────────────────── */
+    .countdown-wrap {
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 0.85s;
+    }
+    .countdown-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue-pale);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .countdown { display: flex; align-items: flex-start; gap: 4px; }
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 86px;
+    }
+    .cd-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 88px);
+      line-height: 1;
+      background: linear-gradient(175deg, var(--white) 0%, var(--blue-pale) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.02em;
+    }
+    .cd-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-top: 4px;
+    }
+    .cd-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 88px);
+      line-height: 1;
+      color: var(--blue-dark);
+      padding: 0 2px;
+      user-select: none;
+    }
+
+    /* ─── Progress bar ────────────────────────────────────────── */
+    .progress-wrap {
+      width: 100%;
+      max-width: 540px;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 1.05s;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .progress-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+    }
+    .progress-pct {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--orange-light);
+    }
+    .progress-track {
+      width: 100%;
+      height: 3px;
+      background: var(--blue-dark);
+      position: relative;
+      overflow: visible;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--blue-mid) 0%, var(--blue-steel) 50%, var(--orange) 100%);
+      transition: width 2.2s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--orange-light);
+      box-shadow: 0 0 14px 4px rgba(232,104,32,0.5);
+    }
+
+    /* ─── Divider ─────────────────────────────────────────────── */
+    .rule {
+      width: 100%;
+      max-width: 540px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blue-dark) 30%, var(--blue-dark) 70%, transparent);
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards 1.25s;
+    }
+
+    /* ─── Unified contact + social icon row ──────────────────── */
+    .icon-row-wrap {
+      text-align: center;
+      opacity: 0;
+      animation: riseIn 1s ease forwards 1.35s;
+    }
+    .icon-row-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue-pale);
+      margin-bottom: 20px;
+    }
+    .icon-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .icon-row-sep {
+      width: 1px;
+      height: 24px;
+      background: var(--blue-dark);
+      flex-shrink: 0;
+    }
+    .icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--blue-dark);
+      color: var(--blue-light);
+      text-decoration: none;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover {
+      background: var(--orange-pale);
+      border-color: var(--orange);
+      color: var(--orange-light);
+    }
+    .icon-btn svg { width: 17px; height: 17px; fill: currentColor; }
+    .icon-btn.stroke svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer {
+      padding: 13px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 4;
+      border-top: 1px solid rgba(21, 48, 96, 0.6);
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards 1.6s;
+    }
+    .footer-copy {
+      font-family: 'Oswald', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(59,106,176,0.45);
+    }
+    .footer-devshak {
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(208,80,0,0.65);
+    }
+    .footer-devshak span {
+      color: rgba(232,104,32,1);
+      font-weight: 600;
+    }
+
+    /* ─── Keyframes ───────────────────────────────────────────── */
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .logo-svg  { width: 260px; }
+      .logo-rule { width: 160px; }
+      .cd-unit { min-width: 64px; }
+      .stripe-corner { width: 140px; height: 140px; }
+      footer { flex-direction: column; gap: 4px; padding: 10px 20px; }
+      .icon-row { gap: 10px; }
+
+      .wheel-watermark {
+        right: auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 460px;
+        height: 460px;
+        opacity: 0.045;
+        animation: wheelSpinMobile 80s linear infinite;
+      }
+    }
+
+    @keyframes wheelSpinMobile {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
